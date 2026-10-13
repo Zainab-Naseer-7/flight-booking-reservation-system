@@ -1,0 +1,1416 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AeroLuxe | Ultra-Premium Flight Booking & Reservation System</title>
+  <meta name="description" content="AeroLuxe is a world-class flight booking and reservation platform. Experience seamless luxury travel, transparent pricing, interactive aircraft seat selection, and digital boarding passes.">
+  <meta name="keywords" content="flight booking, luxury airline, first class flights, aeroluxe, airline reservation, flight search">
+  
+  <!-- Favicon SVG -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2319C7E8'><path d='M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z'/></svg>">
+  
+  <!-- Master Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- =========================================================================
+       1. Top Utility Announcement Bar
+       ========================================================================= -->
+  <div class="top-bar">
+    <div class="container top-bar-inner">
+      <div class="top-bar-left">
+        <span class="top-bar-item">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+          24/7 Global VIP Concierge: +1 (800) 890-LUXE
+        </span>
+        <span class="top-bar-item text-gold">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+          Complimentary Chauffeur on First & Business Class
+        </span>
+      </div>
+      <div class="top-bar-right">
+        <!-- Currency Converter Switcher -->
+        <label for="currencySelector" style="display:none;">Select Currency</label>
+        <select id="currencySelector" class="currency-select" title="Change Currency">
+          <option value="USD">USD ($)</option>
+          <option value="EUR">EUR (€)</option>
+          <option value="GBP">GBP (£)</option>
+          <option value="AED">AED (د.إ)</option>
+          <option value="PKR">PKR (₨)</option>
+          <option value="INR">INR (₹)</option>
+          <option value="JPY">JPY (¥)</option>
+        </select>
+        
+        <select class="lang-select" title="Language">
+          <option value="EN">English</option>
+          <option value="FR">Français</option>
+          <option value="AR">العربية</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       2. Sticky Luxury Navigation Bar
+       ========================================================================= -->
+  <header class="navbar" id="navbar">
+    <div class="container nav-container">
+      <!-- Brand Logo -->
+      <a href="#" class="brand-logo" id="navLogo">
+        <div class="logo-symbol">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/>
+          </svg>
+        </div>
+        <div class="logo-text">
+          <span class="logo-title">AERO<span>LUXE</span></span>
+          <span class="logo-subtitle">Aviation & Travel</span>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation Menu -->
+      <nav class="nav-menu">
+        <a href="#searchSection" class="nav-link active">Flights</a>
+        <a href="#destinationsSection" class="nav-link">Destinations</a>
+        <a href="#dealsSection" class="nav-link">Deals</a>
+        <a href="#experienceSection" class="nav-link">The Experience</a>
+        <a href="#myBookingsSection" class="nav-link" id="navMyTripsLink">My Bookings</a>
+        <a href="#faqSection" class="nav-link">Help & FAQs</a>
+      </nav>
+
+      <!-- Nav Actions -->
+      <div class="nav-actions">
+        <!-- Dark/Light Theme Toggle -->
+        <button id="themeToggleBtn" class="btn-theme-toggle" title="Toggle Theme" aria-label="Toggle Theme">
+          <svg id="themeIconSun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+          <svg id="themeIconMoon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+
+        <!-- Sign In Button -->
+        <button id="signInBtn" class="btn-signin">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+          <span id="navUserLabel">Sign In</span>
+        </button>
+
+        <!-- Book Flight Action -->
+        <a href="#searchSection" class="btn-primary-action">
+          <span>Book a Flight</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M5 13h11.86l-5.43 5.43 1.42 1.42L21.14 12l-8.29-8.29-1.42 1.42L16.86 11H5v2z"/></svg>
+        </a>
+
+        <!-- Mobile Menu Hamburger -->
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open Navigation">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer -->
+    <div class="mobile-nav-drawer" id="mobileDrawer" style="display:none;">
+      <a href="#searchSection" class="nav-link mobile-link">Flights</a>
+      <a href="#destinationsSection" class="nav-link mobile-link">Destinations</a>
+      <a href="#dealsSection" class="nav-link mobile-link">Deals</a>
+      <a href="#experienceSection" class="nav-link mobile-link">The Experience</a>
+      <a href="#myBookingsSection" class="nav-link mobile-link" id="mobileMyTrips">My Bookings</a>
+      <a href="#faqSection" class="nav-link mobile-link">Help & FAQs</a>
+    </div>
+  </header>
+
+  <!-- =========================================================================
+       3. Hero Section
+       ========================================================================= -->
+  <section class="hero-section" id="heroSection">
+    <div class="hero-glow-orb hero-glow-1"></div>
+    <div class="hero-glow-orb hero-glow-2"></div>
+
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-eyebrow">
+          <span class="badge-luxury">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+            World's Leading Luxury Airline Experience 2026
+          </span>
+        </div>
+
+        <h1 class="hero-title">
+          Your Journey Begins <br>
+          <span class="gradient-text">Above the Ordinary.</span>
+        </h1>
+
+        <p class="hero-subtitle">
+          Search, compare and reserve flights worldwide with a smarter, faster and more seamless booking experience. Curated international routes, bespoke hospitality, and guaranteed lowest luxury fares.
+        </p>
+
+        <div class="hero-stats-row">
+          <div class="hero-stat-item">
+            <span class="hero-stat-dot"></span>
+            <strong>500+</strong> Global Luxury Routes
+          </div>
+          <div class="hero-stat-item">
+            <span class="hero-stat-dot"></span>
+            <strong>99.8%</strong> On-Time Departure
+          </div>
+          <div class="hero-stat-item">
+            <span class="hero-stat-dot"></span>
+            <strong>4.9 ★</strong> Passenger Rating (120k+ Reviews)
+          </div>
+        </div>
+      </div>
+
+      <!-- =======================================================================
+           4. Flight Search Engine Panel
+           ======================================================================= -->
+      <div class="search-widget-card" id="searchSection">
+        <!-- Tabs & Trip Type Selection -->
+        <div class="search-tabs-row">
+          <div class="trip-type-group" id="tripTypeGroup">
+            <button class="trip-type-btn active" data-type="round">Round Trip</button>
+            <button class="trip-type-btn" data-type="oneway">One Way</button>
+            <button class="trip-type-btn" data-type="multi">Multi-City</button>
+          </div>
+
+          <div class="search-meta-group">
+            <!-- Travelers & Cabin Popover Trigger -->
+            <button class="meta-trigger-btn" id="passengerMetaBtn" type="button">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+              <span id="passengerSummaryText">1 Adult, Economy</span>
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg>
+            </button>
+
+            <!-- Passenger & Cabin Popover Menu -->
+            <div class="passenger-popover-menu" id="passengerPopover">
+              <div class="passenger-row">
+                <div class="passenger-desc">
+                  <span class="passenger-type">Adults</span>
+                  <span class="passenger-age">Age 12+</span>
+                </div>
+                <div class="stepper-controls">
+                  <button type="button" class="btn-stepper" id="decAdults">-</button>
+                  <span class="stepper-value" id="adultCount">1</span>
+                  <button type="button" class="btn-stepper" id="incAdults">+</button>
+                </div>
+              </div>
+
+              <div class="passenger-row">
+                <div class="passenger-desc">
+                  <span class="passenger-type">Children</span>
+                  <span class="passenger-age">Age 2-11</span>
+                </div>
+                <div class="stepper-controls">
+                  <button type="button" class="btn-stepper" id="decChildren">-</button>
+                  <span class="stepper-value" id="childCount">0</span>
+                  <button type="button" class="btn-stepper" id="incChildren">+</button>
+                </div>
+              </div>
+
+              <div class="passenger-row">
+                <div class="passenger-desc">
+                  <span class="passenger-type">Infants</span>
+                  <span class="passenger-age">Under 2 yrs</span>
+                </div>
+                <div class="stepper-controls">
+                  <button type="button" class="btn-stepper" id="decInfants">-</button>
+                  <span class="stepper-value" id="infantCount">0</span>
+                  <button type="button" class="btn-stepper" id="incInfants">+</button>
+                </div>
+              </div>
+
+              <div class="cabin-choice-grid" id="cabinChoiceGrid">
+                <button type="button" class="cabin-pill active" data-cabin="Economy">Economy</button>
+                <button type="button" class="cabin-pill" data-cabin="Premium Economy">Prem. Economy</button>
+                <button type="button" class="cabin-pill" data-cabin="Business">Business</button>
+                <button type="button" class="cabin-pill" data-cabin="First Class">First Class</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Main Search Inputs Form -->
+        <form id="flightSearchForm" class="search-inputs-grid" onsubmit="return false;">
+          <!-- Origin Airport Field -->
+          <div class="search-field-box" id="originFieldBox">
+            <span class="field-label">Departure From</span>
+            <div class="field-value-display">
+              <span class="field-code" id="originCodeDisplay">JFK</span>
+              <div class="field-subtext" id="originSubtextDisplay">New York (JFK)</div>
+            </div>
+            
+            <!-- Dropdown Autocomplete for Origin -->
+            <div class="airport-dropdown-menu" id="originDropdown">
+              <input type="text" class="dropdown-search-input" id="originSearchInput" placeholder="Type city or airport code..." autocomplete="off">
+              <div class="airport-list" id="originAirportList"></div>
+            </div>
+          </div>
+
+          <!-- Swap Origin / Destination Button -->
+          <button type="button" class="btn-swap-airports" id="swapAirportsBtn" title="Swap Route" aria-label="Swap Origin and Destination">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M6.99 11L3 15l3.99 4v-3H14v-2H6.99v-3zM21 9l-3.99-4v3H10v2h7.01v3L21 9z"/>
+            </svg>
+          </button>
+
+          <!-- Destination Airport Field -->
+          <div class="search-field-box" id="destFieldBox">
+            <span class="field-label">Arrival To</span>
+            <div class="field-value-display">
+              <span class="field-code" id="destCodeDisplay">DXB</span>
+              <div class="field-subtext" id="destSubtextDisplay">Dubai (DXB)</div>
+            </div>
+
+            <!-- Dropdown Autocomplete for Destination -->
+            <div class="airport-dropdown-menu" id="destDropdown">
+              <input type="text" class="dropdown-search-input" id="destSearchInput" placeholder="Type city or airport code..." autocomplete="off">
+              <div class="airport-list" id="destAirportList"></div>
+            </div>
+          </div>
+
+          <!-- Departure Date -->
+          <div class="search-field-box">
+            <label for="departureDateInput" class="field-label">Departure Date</label>
+            <input type="date" id="departureDateInput" class="field-input-invisible" required>
+          </div>
+
+          <!-- Return Date -->
+          <div class="search-field-box" id="returnDateBox">
+            <label for="returnDateInput" class="field-label">Return Date</label>
+            <input type="date" id="returnDateInput" class="field-input-invisible">
+          </div>
+
+          <!-- Search CTA Button -->
+          <button type="submit" class="btn-search-flights" id="btnExecuteSearch">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+            <span>Search Flights</span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       5. Multi-Step Booking Stepper Bar
+       ========================================================================= -->
+  <div class="booking-stepper-bar" id="bookingStepper">
+    <div class="container stepper-steps-container">
+      <div class="stepper-step active" data-step="1" id="stepIndicator1">
+        <div class="step-number">1</div>
+        <span class="step-label">Select Flight</span>
+      </div>
+      <div class="stepper-step" data-step="2" id="stepIndicator2">
+        <div class="step-number">2</div>
+        <span class="step-label">Flight Details</span>
+      </div>
+      <div class="stepper-step" data-step="3" id="stepIndicator3">
+        <div class="step-number">3</div>
+        <span class="step-label">Passenger Info</span>
+      </div>
+      <div class="stepper-step" data-step="4" id="stepIndicator4">
+        <div class="step-number">4</div>
+        <span class="step-label">Seat Selection</span>
+      </div>
+      <div class="stepper-step" data-step="5" id="stepIndicator5">
+        <div class="step-number">5</div>
+        <span class="step-label">Review & Pay</span>
+      </div>
+      <div class="stepper-step" data-step="6" id="stepIndicator6">
+        <div class="step-number">6</div>
+        <span class="step-label">Confirmation</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       6. Section: Flight Search Results (Step 1)
+       ========================================================================= -->
+  <section class="results-section container" id="resultsSection" style="display:none;">
+    <!-- Results Header -->
+    <div class="results-header-row">
+      <div class="results-route-title">
+        <h2 id="resultsRouteHeader">New York (JFK) → Dubai (DXB)</h2>
+        <span class="results-count-pill" id="resultsCountText">Showing 8 Available Flights</span>
+      </div>
+
+      <div style="display: flex; gap: 0.75rem; align-items: center;">
+        <button class="btn-filter-drawer-toggle" id="filterDrawerToggleBtn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M10 18h4v-2h-4v2zM3 6v2h18V6H3zm3 7h12v-2H6v2z"/></svg>
+          Filters
+        </button>
+
+        <!-- Sorting Bar -->
+        <div class="results-sort-bar">
+          <span class="sort-label">Sort By:</span>
+          <button class="sort-pill active" data-sort="recommended">Recommended</button>
+          <button class="sort-pill" data-sort="cheapest">Cheapest</button>
+          <button class="sort-pill" data-sort="fastest">Fastest</button>
+          <button class="sort-pill" data-sort="earliest">Earliest</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Results Layout -->
+    <div class="results-layout">
+      <!-- Filtering Sidebar -->
+      <aside class="filters-sidebar" id="filtersSidebar">
+        <div class="filter-group">
+          <div class="filter-group-title">
+            <span>Stops</span>
+          </div>
+          <label class="filter-checkbox-label">
+            <span><input type="checkbox" name="filterStops" value="all" checked> Any Number of Stops</span>
+          </label>
+          <label class="filter-checkbox-label">
+            <span><input type="checkbox" name="filterStops" value="direct"> Non-Stop (Direct)</span>
+            <span class="filter-count">4</span>
+          </label>
+          <label class="filter-checkbox-label">
+            <span><input type="checkbox" name="filterStops" value="1stop"> 1 Stop Layover</span>
+            <span class="filter-count">4</span>
+          </label>
+        </div>
+
+        <div class="filter-group">
+          <div class="filter-group-title">
+            <span>Max Price</span>
+          </div>
+          <input type="range" class="price-range-slider" id="priceRangeSlider" min="300" max="4500" step="50" value="4500">
+          <div class="price-range-values">
+            <span>Min: $300</span>
+            <span id="priceRangeDisplay">Max: $4,500</span>
+          </div>
+        </div>
+
+        <div class="filter-group">
+          <div class="filter-group-title">
+            <span>Airlines</span>
+          </div>
+          <label class="filter-checkbox-label">
+            <span><input type="checkbox" name="filterAirline" value="AeroLuxe Flagship" checked> AeroLuxe Premier</span>
+          </label>
+          <label class="filter-checkbox-label">
+            <span><input type="checkbox" name="filterAirline" value="Emirates" checked> Emirates</span>
+          </label>
+          <label class="filter-checkbox-label">
+            <span><input type="checkbox" name="filterAirline" value="Qatar Airways" checked> Qatar Airways</span>
+          </label>
+          <label class="filter-checkbox-label">
+            <span><input type="checkbox" name="filterAirline" value="Singapore Airlines" checked> Singapore Airlines</span>
+          </label>
+          <label class="filter-checkbox-label">
+            <span><input type="checkbox" name="filterAirline" value="British Airways" checked> British Airways</span>
+          </label>
+        </div>
+
+        <div class="filter-group">
+          <div class="filter-group-title">
+            <span>Departure Time</span>
+          </div>
+          <label class="filter-checkbox-label">
+            <span><input type="checkbox" name="filterTime" value="morning" checked> Morning (06:00 - 12:00)</span>
+          </label>
+          <label class="filter-checkbox-label">
+            <span><input type="checkbox" name="filterTime" value="afternoon" checked> Afternoon (12:00 - 18:00)</span>
+          </label>
+          <label class="filter-checkbox-label">
+            <span><input type="checkbox" name="filterTime" value="evening" checked> Evening (18:00 - 00:00)</span>
+          </label>
+        </div>
+
+        <button class="btn-signin" style="width: 100%; justify-content: center; margin-top: 1rem;" id="btnResetFilters">
+          Reset All Filters
+        </button>
+      </aside>
+
+      <!-- Flights List Container -->
+      <div class="flights-list" id="flightsCardsContainer">
+        <!-- Rendered dynamically by app.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       7. Section: Passenger Information Form (Step 3)
+       ========================================================================= -->
+  <section class="passenger-form-section container" id="passengerFormSection">
+    <div class="form-card">
+      <div class="form-section-title">Passenger Information</div>
+      <p class="form-section-subtitle">Please enter your official passport travel details. Ensure names match your government photo identification exactly.</p>
+
+      <form id="passengerDetailsForm" onsubmit="return false;">
+        <div class="form-grid-3">
+          <div class="input-group">
+            <label for="passTitle" class="input-label">Title</label>
+            <select id="passTitle" class="input-control">
+              <option value="Mr">Mr.</option>
+              <option value="Mrs">Mrs.</option>
+              <option value="Ms">Ms.</option>
+              <option value="Dr">Dr.</option>
+            </select>
+          </div>
+          <div class="input-group" id="groupFirstName">
+            <label for="passFirstName" class="input-label">First / Given Name *</label>
+            <input type="text" id="passFirstName" class="input-control" placeholder="e.g. Alexander" required>
+            <span class="input-error-msg">Please enter a valid first name</span>
+          </div>
+          <div class="input-group" id="groupLastName">
+            <label for="passLastName" class="input-label">Last / Surname *</label>
+            <input type="text" id="passLastName" class="input-control" placeholder="e.g. Vance" required>
+            <span class="input-error-msg">Please enter a valid last name</span>
+          </div>
+        </div>
+
+        <div class="form-grid-3">
+          <div class="input-group" id="groupDob">
+            <label for="passDob" class="input-label">Date of Birth *</label>
+            <input type="date" id="passDob" class="input-control" required>
+            <span class="input-error-msg">Valid birthdate required</span>
+          </div>
+          <div class="input-group">
+            <label for="passGender" class="input-label">Gender</label>
+            <select id="passGender" class="input-control">
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other / Undisclosed</option>
+            </select>
+          </div>
+          <div class="input-group" id="groupNationality">
+            <label for="passNationality" class="input-label">Nationality *</label>
+            <input type="text" id="passNationality" class="input-control" placeholder="e.g. United States" required>
+            <span class="input-error-msg">Nationality required</span>
+          </div>
+        </div>
+
+        <div class="form-grid-3">
+          <div class="input-group" id="groupPassport">
+            <label for="passPassport" class="input-label">Passport / ID Document *</label>
+            <input type="text" id="passPassport" class="input-control" placeholder="e.g. P98214589" required>
+            <span class="input-error-msg">Valid passport document required</span>
+          </div>
+          <div class="input-group" id="groupEmail">
+            <label for="passEmail" class="input-label">Email Address (For e-Ticket) *</label>
+            <input type="email" id="passEmail" class="input-control" placeholder="e.g. alex.vance@aeroluxe.com" required>
+            <span class="input-error-msg">Valid email address required</span>
+          </div>
+          <div class="input-group" id="groupPhone">
+            <label for="passPhone" class="input-label">Phone Number (SMS Updates) *</label>
+            <input type="tel" id="passPhone" class="input-control" placeholder="+1 (555) 234-5678" required>
+            <span class="input-error-msg">Phone number required</span>
+          </div>
+        </div>
+
+        <div class="form-grid-2">
+          <div class="input-group">
+            <label for="passMeal" class="input-label">Complimentary Gourmet Meal Preference</label>
+            <select id="passMeal" class="input-control">
+              <option value="Standard Luxury Dining">Standard Luxury Dining</option>
+              <option value="Vegetarian Gourmet">Vegetarian Gourmet</option>
+              <option value="Halal Certified">Halal Certified</option>
+              <option value="Kosher">Kosher</option>
+              <option value="Gluten-Free Precision">Gluten-Free Precision</option>
+            </select>
+          </div>
+          <div class="input-group">
+            <label for="passSpecial" class="input-label">Special Assistance / Requests</label>
+            <input type="text" id="passSpecial" class="input-control" placeholder="Wheelchair assistance, priority luggage, etc.">
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 2rem;">
+          <button type="button" class="btn-signin" id="btnBackToFlights">
+            ← Back to Flights
+          </button>
+          <button type="submit" class="btn-primary-action" id="btnSubmitPassenger">
+            <span>Continue to Seat Selection</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M5 13h11.86l-5.43 5.43 1.42 1.42L21.14 12l-8.29-8.29-1.42 1.42L16.86 11H5v2z"/></svg>
+          </button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       8. Section: Interactive Aircraft Seat Selection (Step 4)
+       ========================================================================= -->
+  <section class="seatmap-section container" id="seatmapSection">
+    <div class="seatmap-layout">
+      <!-- Fuselage Map Container -->
+      <div class="cabin-fuselage-wrapper">
+        <div class="aircraft-cockpit">
+          <span>Flight Cockpit</span>
+        </div>
+
+        <!-- Legend -->
+        <div class="seat-legend">
+          <div class="legend-item">
+            <div class="seat-sample avail"></div>
+            <span>Standard ($0)</span>
+          </div>
+          <div class="legend-item">
+            <div class="seat-sample" style="background: var(--bg-secondary); border-color: var(--status-info);"></div>
+            <span>Exit Row / Legroom (+$45)</span>
+          </div>
+          <div class="legend-item">
+            <div class="seat-sample premium"></div>
+            <span>Luxury Suite (+$120)</span>
+          </div>
+          <div class="legend-item">
+            <div class="seat-sample selected"></div>
+            <span>Your Selection</span>
+          </div>
+          <div class="legend-item">
+            <div class="seat-sample occupied"></div>
+            <span>Occupied</span>
+          </div>
+        </div>
+
+        <!-- First & Business Cabin -->
+        <div class="cabin-class-header gold">First & Business Class Suites</div>
+        <div class="cabin-grid" id="firstClassCabinGrid">
+          <!-- Rendered dynamically -->
+        </div>
+
+        <!-- Economy Class -->
+        <div class="cabin-class-header" style="margin-top: 2.5rem;">Economy & Premium Economy Cabin</div>
+        <div class="cabin-grid" id="economyCabinGrid">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+
+      <!-- Live Seat Summary Card -->
+      <div class="seat-summary-card">
+        <h3>Seat Allocation</h3>
+        <p class="text-secondary" style="font-size: 0.82rem; margin-top: 0.25rem;">Live passenger seat assignment</p>
+
+        <div class="selected-seat-preview">
+          <div class="preview-seat-code" id="liveSeatCodeDisplay">12A</div>
+          <div class="preview-seat-type" id="liveSeatTypeDisplay">Business Class Window Suite</div>
+          <div class="preview-seat-fee" id="liveSeatFeeDisplay">Included with Fare ($0)</div>
+        </div>
+
+        <div style="font-size: 0.82rem; color: var(--text-secondary); margin-bottom: 1.5rem; line-height: 1.5;">
+          ✓ Fully reclinable lie-flat bed<br>
+          ✓ Direct aisle access & privacy doors<br>
+          ✓ Ultra-HD 24" touch entertainment
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+          <button class="btn-primary-action" style="width: 100%; justify-content: center;" id="btnConfirmSeatSelection">
+            Confirm Seat & Continue
+          </button>
+          <button class="btn-signin" style="width: 100%; justify-content: center;" id="btnBackToPassenger">
+            ← Back to Passenger Details
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       9. Section: Booking Review & Price Breakdown (Step 5)
+       ========================================================================= -->
+  <section class="review-section container" id="reviewSection">
+    <div class="review-grid">
+      <!-- Left Column: Flight & Passenger Recap -->
+      <div>
+        <div class="review-card">
+          <h3 style="margin-bottom: 1rem;">Flight Itinerary Review</h3>
+          <div id="reviewFlightDetailsSummary">
+            <!-- Dynamic flight card injected here -->
+          </div>
+        </div>
+
+        <div class="review-card">
+          <h3 style="margin-bottom: 1rem;">Passenger & Baggage Overview</h3>
+          <div id="reviewPassengerDetailsSummary" style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.8;">
+            <!-- Dynamic passenger summary injected here -->
+          </div>
+        </div>
+
+        <!-- Demo Portfolio Notice Banner -->
+        <div class="demo-disclaimer-banner">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+          <div>
+            <strong>Demo Portfolio Reservation:</strong> This is a high-fidelity commercial demonstration platform. No real monetary transactions will be processed. All generated PNR codes and boarding passes are fully functional within this demo environment.
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Itemized Price Breakdown -->
+      <div>
+        <div class="review-card" style="position: sticky; top: 90px;">
+          <h3 style="margin-bottom: 1.25rem;">Price Breakdown</h3>
+
+          <div class="price-breakdown-row">
+            <span>Base Airfare (<span id="summaryPassengerCount">1</span> Traveler)</span>
+            <span id="summaryBasePrice">$1,150.00</span>
+          </div>
+
+          <div class="price-breakdown-row">
+            <span>Taxes & International Surcharges</span>
+            <span id="summaryTaxPrice">$185.00</span>
+          </div>
+
+          <div class="price-breakdown-row">
+            <span>Selected Seat (<span id="summarySeatCode">12A</span>)</span>
+            <span id="summarySeatPrice">$0.00</span>
+          </div>
+
+          <div class="price-breakdown-row">
+            <span>Premium Luggage Allowance (2x 32kg)</span>
+            <span style="color: var(--status-success);">Included Free</span>
+          </div>
+
+          <div class="price-breakdown-row" id="promoDiscountRow" style="display: none; color: var(--status-success);">
+            <span>Promo Discount (AEROLUXE20)</span>
+            <span id="summaryDiscountAmount">-$267.00</span>
+          </div>
+
+          <div class="price-breakdown-row total">
+            <span>Grand Total</span>
+            <span class="text-gold" id="summaryGrandTotal" style="font-size: 1.6rem;">$1,335.00</span>
+          </div>
+
+          <!-- Promo Code Engine -->
+          <div class="promo-input-row">
+            <input type="text" class="promo-input" id="promoCodeInput" placeholder="PROMO: AEROLUXE20">
+            <button type="button" class="btn-apply-promo" id="btnApplyPromo">Apply</button>
+          </div>
+
+          <div style="margin-top: 1.75rem; display: flex; flex-direction: column; gap: 0.75rem;">
+            <button class="btn-primary-action" style="width: 100%; justify-content: center; font-size: 1rem; padding: 0.9rem;" id="btnCompleteReservation">
+              Confirm & Issue Boarding Pass
+            </button>
+            <button class="btn-signin" style="width: 100%; justify-content: center;" id="btnBackToSeatmap">
+              ← Change Seat
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       10. Section: Booking Confirmation & Digital Boarding Pass (Step 6)
+       ========================================================================= -->
+  <section class="confirmation-section container" id="confirmationSection">
+    <div class="confirmation-header">
+      <div class="confirm-check-icon">✓</div>
+      <h2 style="font-size: 2.2rem; margin-bottom: 0.5rem;">Booking Confirmed!</h2>
+      <p class="text-secondary">Your high-priority reservation is secured. A copy of your luxury digital boarding pass has been sent to your email.</p>
+    </div>
+
+    <!-- Digital Boarding Pass Card -->
+    <div class="boarding-pass-card" id="digitalBoardingPass">
+      <div class="pass-perforation"></div>
+      <div class="pass-notch-top"></div>
+      <div class="pass-notch-bottom"></div>
+
+      <!-- Main Pass Body -->
+      <div class="pass-main-body">
+        <div class="pass-top-bar">
+          <div style="display: flex; align-items: center; gap: 0.75rem;">
+            <div class="logo-symbol" style="width: 32px; height: 32px;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>
+            </div>
+            <div>
+              <div style="font-weight: 800; font-size: 1.1rem; letter-spacing: 0.05em;">AEROLUXE PREMIER</div>
+              <div style="font-size: 0.72rem; color: var(--accent-cyan); text-transform: uppercase;">Official First-Class e-Boarding Pass</div>
+            </div>
+          </div>
+          <div class="pass-pnr-box">
+            <span class="pass-pnr-label">Booking Reference</span>
+            <div class="pass-pnr-value" id="passPnrCode">ALX-9824F</div>
+          </div>
+        </div>
+
+        <div class="pass-route-row">
+          <div class="pass-city-block">
+            <span class="pass-airport-code" id="passOriginCode">JFK</span>
+            <span class="pass-city-name" id="passOriginCity">New York (JFK)</span>
+          </div>
+
+          <div style="display: flex; flex-direction: column; align-items: center;">
+            <span style="font-size: 0.75rem; color: var(--accent-gold); font-weight: 600;" id="passFlightNumber">AL-702</span>
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="var(--accent-blue)"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>
+            <span style="font-size: 0.75rem; color: var(--text-muted);" id="passDuration">12h 45m (Direct)</span>
+          </div>
+
+          <div class="pass-city-block" style="text-align: right;">
+            <span class="pass-airport-code" id="passDestCode">DXB</span>
+            <span class="pass-city-name" id="passDestCity">Dubai (DXB)</span>
+          </div>
+        </div>
+
+        <div class="pass-details-grid">
+          <div class="pass-detail-item">
+            <span class="pass-detail-label">Passenger</span>
+            <span class="pass-detail-val" id="passPassengerName">Alexander Vance</span>
+          </div>
+          <div class="pass-detail-item">
+            <span class="pass-detail-label">Departure Date</span>
+            <span class="pass-detail-val" id="passDepartureDate">Oct 24, 2026</span>
+          </div>
+          <div class="pass-detail-item">
+            <span class="pass-detail-label">Boarding Time</span>
+            <span class="pass-detail-val" id="passBoardingTime">21:40 EST</span>
+          </div>
+          <div class="pass-detail-item">
+            <span class="pass-detail-label">Gate / Terminal</span>
+            <span class="pass-detail-val" id="passGate">Gate B12 (T4)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pass Tear-off Stub -->
+      <div class="pass-stub">
+        <div style="width: 100%;">
+          <div style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted);">Assigned Seat</div>
+          <div style="font-family: 'Outfit', sans-serif; font-size: 2.2rem; font-weight: 800; color: var(--accent-cyan);" id="passSeatCode">12A</div>
+          <div style="font-size: 0.75rem; color: var(--accent-gold); font-weight: 600;" id="passCabinClass">Business Suite</div>
+        </div>
+
+        <!-- Stub QR Code Mockup -->
+        <div class="stub-qr-mock">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M3 3h8v8H3V3zm2 2v4h4V5H5zm8-2h8v8h-8V3zm2 2v4h4V5h-4zM3 13h8v8H3v-8zm2 2v4h4v-4H5zm13-2h3v2h-3v-2zm-5 0h2v3h-2v-3zm2 3h3v2h-3v-2zm3 3h3v3h-3v-3zm-5 0h2v3h-2v-3zm2 1h3v2h-3v-2z"/>
+          </svg>
+        </div>
+
+        <!-- Stub Barcode Graphic -->
+        <div class="stub-barcode-graphic"></div>
+      </div>
+    </div>
+
+    <!-- Actions Row -->
+    <div class="confirmation-actions-row">
+      <button class="btn-primary-action" id="btnPrintBoardingPass">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/></svg>
+        <span>Print / Save Ticket (PDF)</span>
+      </button>
+
+      <button class="btn-signin" id="btnGoToMyTrips">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z"/></svg>
+        <span>View in My Bookings</span>
+      </button>
+
+      <button class="btn-signin" id="btnBookAnotherFlight">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg>
+        <span>Book Another Flight</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       11. Section: My Bookings Dashboard
+       ========================================================================= -->
+  <section class="my-bookings-section container" id="myBookingsSection">
+    <div class="section-header" style="text-align: left; margin-bottom: 2rem;">
+      <span class="badge-luxury">Trip Management Portal</span>
+      <h2 class="section-title" style="margin-top: 0.5rem;">My Bookings & Reservations</h2>
+      <p class="section-subtitle">Manage upcoming itineraries, download tickets, and access VIP concierge upgrades.</p>
+    </div>
+
+    <!-- Tabs (Upcoming / Completed / Cancelled) -->
+    <div class="trips-filter-tabs">
+      <button class="trip-tab-btn active" data-tab="upcoming">Upcoming Flights (<span id="countUpcoming">2</span>)</button>
+      <button class="trip-tab-btn" data-tab="completed">Completed Trips (<span id="countCompleted">3</span>)</button>
+      <button class="trip-tab-btn" data-tab="cancelled">Cancelled (<span id="countCancelled">0</span>)</button>
+    </div>
+
+    <!-- Trip Cards Container -->
+    <div class="trips-cards-grid" id="tripsCardsContainer">
+      <!-- Dynamic bookings rendered here by app.js -->
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       12. Section: Popular Destinations Showcase
+       ========================================================================= -->
+  <section class="section-padding container" id="destinationsSection">
+    <div class="section-header">
+      <span class="badge-luxury">Hand-Curated Escapes</span>
+      <h2 class="section-title">Popular Luxury Destinations</h2>
+      <p class="section-subtitle">Fly to the world’s most iconic hubs in unmatched comfort with AeroLuxe signature service.</p>
+    </div>
+
+    <div class="destinations-grid" id="destinationsGrid">
+      <!-- Dubai -->
+      <div class="destination-card" data-code="DXB" data-city="Dubai">
+        <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=800&q=80" alt="Dubai Luxury Skyline" class="dest-img" loading="lazy">
+        <div class="dest-overlay">
+          <span class="badge-cyan dest-top-badge">Trending Luxury</span>
+          <div class="dest-bottom-info">
+            <h3 class="dest-city-name">Dubai, UAE</h3>
+            <span class="dest-country">DXB • Direct Daily Flights</span>
+            <div class="dest-price-cta">
+              <div>
+                <span class="dest-price-label">Fares from</span>
+                <div class="dest-price-val">$849</div>
+              </div>
+              <button class="btn-book-dest">Select Route</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tokyo -->
+      <div class="destination-card" data-code="HND" data-city="Tokyo">
+        <img src="https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=800&q=80" alt="Tokyo Skyscraper Night" class="dest-img" loading="lazy">
+        <div class="dest-overlay">
+          <span class="badge-luxury dest-top-badge">Cultural Haven</span>
+          <div class="dest-bottom-info">
+            <h3 class="dest-city-name">Tokyo, Japan</h3>
+            <span class="dest-country">HND • Ultra-Long Range Flagship</span>
+            <div class="dest-price-cta">
+              <div>
+                <span class="dest-price-label">Fares from</span>
+                <div class="dest-price-val">$1,190</div>
+              </div>
+              <button class="btn-book-dest">Select Route</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- London -->
+      <div class="destination-card" data-code="LHR" data-city="London">
+        <img src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=800&q=80" alt="London Westminster Bridge" class="dest-img" loading="lazy">
+        <div class="dest-overlay">
+          <span class="badge-cyan dest-top-badge">Classic Elegance</span>
+          <div class="dest-bottom-info">
+            <h3 class="dest-city-name">London, UK</h3>
+            <span class="dest-country">LHR • Private Lounge Access</span>
+            <div class="dest-price-cta">
+              <div>
+                <span class="dest-price-label">Fares from</span>
+                <div class="dest-price-val">$760</div>
+              </div>
+              <button class="btn-book-dest">Select Route</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Paris -->
+      <div class="destination-card" data-code="CDG" data-city="Paris">
+        <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=800&q=80" alt="Paris Eiffel Tower" class="dest-img" loading="lazy">
+        <div class="dest-overlay">
+          <span class="badge-luxury dest-top-badge">Romantic Capital</span>
+          <div class="dest-bottom-info">
+            <h3 class="dest-city-name">Paris, France</h3>
+            <span class="dest-country">CDG • French Haute Cuisine</span>
+            <div class="dest-price-cta">
+              <div>
+                <span class="dest-price-label">Fares from</span>
+                <div class="dest-price-val">$820</div>
+              </div>
+              <button class="btn-book-dest">Select Route</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Singapore -->
+      <div class="destination-card" data-code="SIN" data-city="Singapore">
+        <img src="https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=800&q=80" alt="Singapore Marina Bay" class="dest-img" loading="lazy">
+        <div class="dest-overlay">
+          <span class="badge-cyan dest-top-badge">Garden City</span>
+          <div class="dest-bottom-info">
+            <h3 class="dest-city-name">Singapore</h3>
+            <span class="dest-country">SIN • Jewel Transit Experience</span>
+            <div class="dest-price-cta">
+              <div>
+                <span class="dest-price-label">Fares from</span>
+                <div class="dest-price-val">$980</div>
+              </div>
+              <button class="btn-book-dest">Select Route</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Istanbul -->
+      <div class="destination-card" data-code="IST" data-city="Istanbul">
+        <img src="https://images.unsplash.com/photo-1527838832700-5059252407fa?auto=format&fit=crop&w=800&q=80" alt="Istanbul Bosphorus" class="dest-img" loading="lazy">
+        <div class="dest-overlay">
+          <span class="badge-luxury dest-top-badge">East Meets West</span>
+          <div class="dest-bottom-info">
+            <h3 class="dest-city-name">Istanbul, Turkey</h3>
+            <span class="dest-country">IST • Grand Hub of Continents</span>
+            <div class="dest-price-cta">
+              <div>
+                <span class="dest-price-label">Fares from</span>
+                <div class="dest-price-val">$690</div>
+              </div>
+              <button class="btn-book-dest">Select Route</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- New York -->
+      <div class="destination-card" data-code="JFK" data-city="New York">
+        <img src="https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?auto=format&fit=crop&w=800&q=80" alt="New York Manhattan Skyline" class="dest-img" loading="lazy">
+        <div class="dest-overlay">
+          <span class="badge-cyan dest-top-badge">Empire State</span>
+          <div class="dest-bottom-info">
+            <h3 class="dest-city-name">New York, USA</h3>
+            <span class="dest-country">JFK • Premier Transatlantic Hub</span>
+            <div class="dest-price-cta">
+              <div>
+                <span class="dest-price-label">Fares from</span>
+                <div class="dest-price-val">$899</div>
+              </div>
+              <button class="btn-book-dest">Select Route</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Maldives (Male) -->
+      <div class="destination-card" data-code="MLE" data-city="Maldives">
+        <img src="https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&fit=crop&w=800&q=80" alt="Maldives Overwater Villas" class="dest-img" loading="lazy">
+        <div class="dest-overlay">
+          <span class="badge-luxury dest-top-badge">Island Paradise</span>
+          <div class="dest-bottom-info">
+            <h3 class="dest-city-name">Maldives (MLE)</h3>
+            <span class="dest-country">MLE • Seaplane Connections</span>
+            <div class="dest-price-cta">
+              <div>
+                <span class="dest-price-label">Fares from</span>
+                <div class="dest-price-val">$1,350</div>
+              </div>
+              <button class="btn-book-dest">Select Route</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       13. Section: Why Choose AeroLuxe (The Experience)
+       ========================================================================= -->
+  <section class="section-padding" id="experienceSection" style="background: var(--bg-secondary);">
+    <div class="container">
+      <div class="section-header">
+        <span class="badge-luxury">The AeroLuxe Standard</span>
+        <h2 class="section-title">Why Fly with AeroLuxe</h2>
+        <p class="section-subtitle">Engineering the ultimate standard of international luxury aviation with zero compromises.</p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon-wrapper">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+          </div>
+          <h3 class="feature-title">Best Flight Options</h3>
+          <p class="feature-desc">Comprehensive real-time airline comparison across 500+ global routes, pairing direct itineraries with the lowest guaranteed luxury airfares.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-wrapper">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+          </div>
+          <h3 class="feature-title">Secure & Instant Booking</h3>
+          <p class="feature-desc">Enterprise-grade encryption and instantaneous PNR confirmation ensure your reservations, passport credentials, and preferences remain fully protected.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-wrapper">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/></svg>
+          </div>
+          <h3 class="feature-title">Transparent Pricing</h3>
+          <p class="feature-desc">Zero hidden booking fees or unexpected checkout penalties. All airport tariffs, baggage inclusions, and carrier taxes are clearly itemized upfront.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-wrapper">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"/></svg>
+          </div>
+          <h3 class="feature-title">24/7 VIP Travel Support</h3>
+          <p class="feature-desc">Round-the-clock priority assistance from certified flight concierges to handle schedule shifts, upgrades, and airport escort services effortlessly.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       14. Section: Exclusive Travel Deals
+       ========================================================================= -->
+  <section class="section-padding container" id="dealsSection">
+    <div class="section-header">
+      <span class="badge-luxury">Limited Time Promotions</span>
+      <h2 class="section-title">Exclusive Member Travel Deals</h2>
+      <p class="section-subtitle">Unlock bespoke fare concessions and complimentary suite upgrades with AeroLuxe promo vouchers.</p>
+    </div>
+
+    <div class="deals-grid">
+      <!-- Deal 1 -->
+      <div class="deal-card">
+        <span class="badge-cyan deal-badge-promo">Global Route Offer</span>
+        <div style="font-size: 0.82rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600;">Worldwide Discount</div>
+        <div class="deal-discount">20% OFF</div>
+        <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5;">Valid across all First & Business Class reservations to Dubai, London, and Tokyo.</p>
+        
+        <div class="deal-code-box">
+          <div>
+            <span style="font-size: 0.72rem; color: var(--text-muted);">Promo Code:</span>
+            <div class="deal-code">AEROLUXE20</div>
+          </div>
+          <span class="btn-copy-code" data-code="AEROLUXE20">Copy Code</span>
+        </div>
+
+        <button class="btn-primary-action" style="width: 100%; justify-content: center;" onclick="window.location.href='#searchSection'">
+          Apply to Search
+        </button>
+      </div>
+
+      <!-- Deal 2 -->
+      <div class="deal-card">
+        <span class="badge-luxury deal-badge-promo">First Class Exclusive</span>
+        <div style="font-size: 0.82rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600;">First Suite Special</div>
+        <div class="deal-discount">$150 OFF</div>
+        <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5;">Instant flat deduction on luxury suite bookings plus complimentary lounge access.</p>
+        
+        <div class="deal-code-box">
+          <div>
+            <span style="font-size: 0.72rem; color: var(--text-muted);">Promo Code:</span>
+            <div class="deal-code">FIRSTCLASS</div>
+          </div>
+          <span class="btn-copy-code" data-code="FIRSTCLASS">Copy Code</span>
+        </div>
+
+        <button class="btn-primary-action" style="width: 100%; justify-content: center;" onclick="window.location.href='#searchSection'">
+          Apply to Search
+        </button>
+      </div>
+
+      <!-- Deal 3 -->
+      <div class="deal-card">
+        <span class="badge-cyan deal-badge-promo">Transatlantic Flights</span>
+        <div style="font-size: 0.82rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600;">Europe & Americas</div>
+        <div class="deal-discount">15% OFF</div>
+        <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5;">Special season discount on New York, London, Paris, and Istanbul non-stop flights.</p>
+        
+        <div class="deal-code-box">
+          <div>
+            <span style="font-size: 0.72rem; color: var(--text-muted);">Promo Code:</span>
+            <div class="deal-code">FLYHIGH</div>
+          </div>
+          <span class="btn-copy-code" data-code="FLYHIGH">Copy Code</span>
+        </div>
+
+        <button class="btn-primary-action" style="width: 100%; justify-content: center;" onclick="window.location.href='#searchSection'">
+          Apply to Search
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       15. Section: Global Network Hubs
+       ========================================================================= -->
+  <section class="section-padding route-network-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="badge-luxury">Global Aviation Footprint</span>
+        <h2 class="section-title">Connected Worldwide Network</h2>
+        <p class="section-subtitle">Seamless connections across key international aerospace gateways with premier airport lounge rights.</p>
+      </div>
+
+      <div class="network-hubs-grid">
+        <div class="network-hub-card">
+          <div class="hub-code">JFK</div>
+          <div class="hub-name">New York John F. Kennedy</div>
+          <span class="badge-cyan" style="margin-top: 0.5rem;">Americas Hub</span>
+        </div>
+        <div class="network-hub-card">
+          <div class="hub-code">LHR</div>
+          <div class="hub-name">London Heathrow Terminal 5</div>
+          <span class="badge-luxury" style="margin-top: 0.5rem;">European Gateway</span>
+        </div>
+        <div class="network-hub-card">
+          <div class="hub-code">DXB</div>
+          <div class="hub-name">Dubai International Terminal 3</div>
+          <span class="badge-cyan" style="margin-top: 0.5rem;">Middle East Hub</span>
+        </div>
+        <div class="network-hub-card">
+          <div class="hub-code">HND</div>
+          <div class="hub-name">Tokyo Haneda International</div>
+          <span class="badge-luxury" style="margin-top: 0.5rem;">Asia-Pacific Hub</span>
+        </div>
+        <div class="network-hub-card">
+          <div class="hub-code">CDG</div>
+          <div class="hub-name">Paris Charles de Gaulle</div>
+          <span class="badge-cyan" style="margin-top: 0.5rem;">Schengen Central</span>
+        </div>
+        <div class="network-hub-card">
+          <div class="hub-code">SIN</div>
+          <div class="hub-name">Singapore Changi Terminal 4</div>
+          <span class="badge-luxury" style="margin-top: 0.5rem;">SE Asia Gateway</span>
+        </div>
+        <div class="network-hub-card">
+          <div class="hub-code">IST</div>
+          <div class="hub-name">Istanbul New Airport</div>
+          <span class="badge-cyan" style="margin-top: 0.5rem;">Cross-Continent</span>
+        </div>
+        <div class="network-hub-card">
+          <div class="hub-code">SYD</div>
+          <div class="hub-name">Sydney Kingsford Smith</div>
+          <span class="badge-luxury" style="margin-top: 0.5rem;">Oceania Gateway</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       16. Section: Verified Passenger Testimonials
+       ========================================================================= -->
+  <section class="section-padding container">
+    <div class="section-header">
+      <span class="badge-luxury">Passenger Recognition</span>
+      <h2 class="section-title">Loved by Discerning Travelers</h2>
+      <p class="section-subtitle">Real experiences shared by global executives, international explorers, and frequent flyers.</p>
+    </div>
+
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div>
+          <div class="stars-rating">★★★★★</div>
+          <p class="testimonial-quote">“The seat selection process was intuitive, and the booking was confirmed in seconds. The First Class suite on the A350 from JFK to DXB felt like a private sanctuary in the sky.”</p>
+        </div>
+        <div class="author-info">
+          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80" alt="Sophia Bennett" class="author-avatar" loading="lazy">
+          <div>
+            <div class="author-name">Sophia Bennett</div>
+            <div class="author-status">Diamond Frequent Flyer • London</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div>
+          <div class="stars-rating">★★★★★</div>
+          <p class="testimonial-quote">“AeroLuxe sets the gold standard for modern flight reservations. The live currency switching, transparent baggage fees, and printable digital boarding passes are genuinely top-tier.”</p>
+        </div>
+        <div class="author-info">
+          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80" alt="Marcus Thorne" class="author-avatar" loading="lazy">
+          <div>
+            <div class="author-name">Marcus Thorne</div>
+            <div class="author-status">Tech Managing Director • San Francisco</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div>
+          <div class="stars-rating">★★★★★</div>
+          <p class="testimonial-quote">“Switching between dark and light mode is butter-smooth. As someone who flies 40+ international sectors a year, AeroLuxe is easily the most polished booking engine I've ever tested.”</p>
+        </div>
+        <div class="author-info">
+          <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=150&q=80" alt="Elena Rostova" class="author-avatar" loading="lazy">
+          <div>
+            <div class="author-name">Elena Rostova</div>
+            <div class="author-status">Global Luxury Architect • Zurich</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       17. Section: Frequently Asked Questions (Accordion)
+       ========================================================================= -->
+  <section class="section-padding container" id="faqSection">
+    <div class="section-header">
+      <span class="badge-luxury">Clear & Transparent</span>
+      <h2 class="section-title">Frequently Asked Questions</h2>
+      <p class="section-subtitle">Everything you need to know about reserving, modifying, and boarding AeroLuxe international flights.</p>
+    </div>
+
+    <div class="faq-accordion">
+      <div class="faq-item open">
+        <button class="faq-trigger">
+          <span>How do I receive and access my digital boarding pass?</span>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+        </button>
+        <div class="faq-content">
+          Upon completing your reservation, your digital boarding pass is generated immediately with a unique PNR code. You can print it as an airline-standard PDF ticket, access it at any time in your "My Bookings" portal, or present it on your mobile device at airport check-in.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-trigger">
+          <span>Can I change or cancel my flight after booking?</span>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+        </button>
+        <div class="faq-content">
+          Yes. All AeroLuxe Business and First Class fares come with 100% complimentary changes up to 24 hours prior to departure. Economy refundable fares allow full credit vouchers without penalties directly from your "My Bookings" dashboard.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-trigger">
+          <span>What baggage allowance is included with my ticket?</span>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+        </button>
+        <div class="faq-content">
+          All international bookings include 1 carry-on cabin bag (up to 10kg) and 1 personal item. Checked baggage depends on cabin class: Economy includes 1x 23kg bag; Business includes 2x 32kg bags; First Class includes 3x 32kg bags with priority priority carousel delivery.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-trigger">
+          <span>How does interactive seat selection work?</span>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+        </button>
+        <div class="faq-content">
+          During the booking wizard (Step 4), an interactive 2D aircraft fuselage map shows real-time available seats. You can pick window, aisle, exit-row, or luxury suites. Your selected seat and any upgrade fees update the live price summary instantaneously.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-trigger">
+          <span>Is this platform connected to live airline payments?</span>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+        </button>
+        <div class="faq-content">
+          AeroLuxe is currently operating in a portfolio showcase demo mode. You can search, filter, customize seats, apply discount vouchers, and generate genuine-looking boarding passes that persist in your browser's local storage without requiring real card charges.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       18. Modal: Flight Details & Timeline
+       ========================================================================= -->
+  <div class="modal-overlay" id="flightDetailsModal">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 id="modalFlightTitle">Flight Details & Itinerary</h3>
+        <button class="btn-modal-close" id="btnCloseDetailsModal">&times;</button>
+      </div>
+      <div class="modal-body" id="modalFlightContent">
+        <!-- Rendered dynamically by app.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       19. Modal: User Sign In / Profile
+       ========================================================================= -->
+  <div class="modal-overlay" id="signInModal">
+    <div class="modal-dialog" style="max-width: 440px;">
+      <div class="modal-header">
+        <h3>AeroLuxe Member Portal</h3>
+        <button class="btn-modal-close" id="btnCloseSignInModal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p class="text-secondary" style="font-size: 0.85rem; margin-bottom: 1.5rem;">Sign in to access your saved traveler profiles, frequent flyer miles, and private lounge boarding passes.</p>
+        
+        <form id="signInForm" onsubmit="return false;">
+          <div class="input-group" style="margin-bottom: 1rem;">
+            <label for="loginEmail" class="input-label">Email or Frequent Flyer Number</label>
+            <input type="text" id="loginEmail" class="input-control" value="alex.vance@aeroluxe.com" required>
+          </div>
+          <div class="input-group" style="margin-bottom: 1.5rem;">
+            <label for="loginPass" class="input-label">Password</label>
+            <input type="password" id="loginPass" class="input-control" value="••••••••••••" required>
+          </div>
+
+          <button type="submit" class="btn-primary-action" style="width: 100%; justify-content: center; margin-bottom: 0.75rem;" id="btnLoginSubmit">
+            Sign In as Alexander Vance
+          </button>
+          
+          <button type="button" class="btn-signin" style="width: 100%; justify-content: center;" id="btnGuestContinue">
+            Continue as Guest Traveler
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       20. Master Luxury Footer
+       ========================================================================= -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <!-- Brand Col -->
+        <div class="footer-brand-col">
+          <div class="brand-logo">
+            <div class="logo-symbol">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>
+            </div>
+            <div class="logo-text">
+              <span class="logo-title">AERO<span>LUXE</span></span>
+              <span class="logo-subtitle">Aviation & Travel</span>
+            </div>
+          </div>
+          <p>
+            The world's benchmark luxury flight booking platform. Combining timeless aviation hospitality with modern travel technology.
+          </p>
+          <div style="font-size: 0.8rem; color: var(--accent-gold); font-weight: 600;">
+            IATA Registered Carrier Partner • Star Luxury Alliance
+          </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div>
+          <h4 class="footer-title">Explore Routes</h4>
+          <div class="footer-links">
+            <a href="#destinationsSection">Dubai Non-Stop</a>
+            <a href="#destinationsSection">Tokyo Haneda Express</a>
+            <a href="#destinationsSection">London Heathrow</a>
+            <a href="#destinationsSection">Paris Charles de Gaulle</a>
+            <a href="#destinationsSection">Singapore Changi</a>
+          </div>
+        </div>
+
+        <!-- Support -->
+        <div>
+          <h4 class="footer-title">Concierge & Help</h4>
+          <div class="footer-links">
+            <a href="#faqSection">Baggage Inclusions</a>
+            <a href="#faqSection">Fare Terms & Refunds</a>
+            <a href="#myBookingsSection">My Bookings Portal</a>
+            <a href="#experienceSection">Private Suite Comfort</a>
+            <a href="#faqSection">VIP Chauffeur Service</a>
+          </div>
+        </div>
+
+        <!-- Newsletter & Updates -->
+        <div>
+          <h4 class="footer-title">AeroLuxe Private Club</h4>
+          <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.75rem;">
+            Subscribe to receive invitation-only flash sales, private route announcements, and 20% discount vouchers.
+          </p>
+          <form class="newsletter-form" id="newsletterForm" onsubmit="return false;">
+            <label for="newsletterEmail" style="display:none;">Email Address</label>
+            <input type="email" class="newsletter-input" id="newsletterEmail" placeholder="Enter your email" required>
+            <button type="submit" class="btn-subscribe" id="btnSubscribe">Join</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>
+          © 2026 AeroLuxe Aviation Group Inc. All rights reserved. Crafted for excellence.
+        </div>
+        <div style="display: flex; gap: 1.5rem;">
+          <a href="#" class="text-secondary">Privacy Policy</a>
+          <a href="#" class="text-secondary">Terms of Carriage</a>
+          <a href="#" class="text-secondary">Aviation Safety Standards</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Master JavaScript Application Engine -->
+  <script src="app.js"></script>
+</body>
+</html>
